@@ -4,6 +4,7 @@ async function setup() {
 
   const disable_button = document.getElementById('disable_button');
   const disable_skip_button = document.getElementById('disable_skip_button');
+  const clear_blacklist = document.getElementById('clear_blacklist');
 
   disable_button.addEventListener('click', async () => {
     const { disable_extension } = await new Promise((resolve) => chrome.storage.sync.get('disable_extension', (value) => resolve(value)));
@@ -19,12 +20,42 @@ async function setup() {
     });
   });
 
-  const submit_button = document.getElementById('submit_button');
-  const minutes_input = document.getElementById('minutes_input');
+  clear_blacklist.addEventListener('click', async () => {
+    const websiteBlacklist = [];
+    document.getElementById('black-list').innerHTML = "";
+    chrome.storage.sync.set({ blacklist: websiteBlacklist }, () => {
+      console.warn("setted", { blacklist: websiteBlacklist })
+    })
+  });
 
-  submit_button.addEventListener('click', () => {
-    chrome.storage.sync.set({ minutes: minutes_input.value }, () => {
-      console.warn("setted", { minutes: minutes_input.value })
+  const { blacklist: websiteBlacklist } = await new Promise((resolve) => chrome.storage.sync.get('blacklist', (value) => resolve(value)));
+  const blackList = document.getElementById('black-list');
+  
+  websiteBlacklist?.forEach((item) => {
+    const listItem = document.createElement('li');
+    listItem.textContent = item;
+    blackList.appendChild(listItem);
+  });
+
+  const website_input = document.getElementById('website_input');
+  const submit_button = document.getElementById('submit_button');
+
+  submit_button.addEventListener('click', async () => {
+    let { blacklist: websiteBlacklist } = await new Promise((resolve) => chrome.storage.sync.get('blacklist', (value) => resolve(value)));
+    const newWebsite = website_input.value;
+
+    if (!newWebsite || websiteBlacklist.includes(newWebsite)) return;
+
+    if (!websiteBlacklist) websiteBlacklist = [];
+    else websiteBlacklist.push(newWebsite);
+
+    const listItem = document.createElement('li');
+    listItem.textContent = newWebsite;
+    blackList.appendChild(listItem);
+  
+    chrome.storage.sync.set({ blacklist: websiteBlacklist }, () => {
+      document.getElementById('website_input').value = "";
+      console.warn("setted", { blacklist: websiteBlacklist })
     })
   })
 }
@@ -41,5 +72,5 @@ async function draw() {
   
   if (disable_skip) disable_skip_button.textContent = "Enable Skip";
   else disable_skip_button.textContent = "Disable Skip";
-  
+
 }

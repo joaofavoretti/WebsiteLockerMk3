@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Website locker</title>
   <style>
+    * {
+      color: #f3f3f3;
+    }
     div {
       width: 100%;
     }
@@ -13,7 +16,6 @@
       background-color: #303030 !important;
       padding: 2rem;
       width: 500px;
-      height: 250px;
       display: flex;
       flex-direction: column;
       align-items: flex-end;
@@ -34,16 +36,21 @@
 </head>
 
 <body>
-  <div class="disable-button">
-    <button id="disable_button" class="btn btn-danger">Disable Extension</button>
-    <button id="disable_skip_button" class="btn btn-danger">Disable Skip</button>
-  </div>
-  <div class="form-black-list">
-    <h3 style="color: #f3f3f3">Insert more websites in your black-list</h1>
+  <div class="form-black-list py-9" style="padding: 1rem 0;">
+    <label>Insert more websites in your black-list:</label>
     <div style="display:flex;">
       <input class="form-control" id="website_input" placeholder="www.google.com">
       <button id="submit_button" class="btn btn-default pt-4" style="margin-left: 12px;">Submit</button>
     </div>
+  </div>
+  <div class="py-9" style="padding: 1rem 0;">
+    <label>Your current blacklist:</label>
+    <ul id="black-list"></ul>
+  </div>
+  <div class="disable-button" style="padding: 1rem 0;">
+    <button id="disable_button" class="btn btn-danger">Disable Extension</button>
+    <button id="disable_skip_button" class="btn btn-danger">Disable Skip</button>
+    <button id="clear_blacklist" class="btn btn-danger">Clear Blacklist</button>
   </div>
 </body>
 

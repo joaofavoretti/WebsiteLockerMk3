@@ -1,17 +1,23 @@
 async function setup() {
     const { disable_extension } = await new Promise((resolve) => chrome.storage.sync.get('disable_extension', (value) => resolve(value)));
 
-    if (disable_extension) {
-        return;
-    }
+    if (disable_extension) return;
+
+    const { blacklist: websiteBlacklist } = await new Promise((resolve) => chrome.storage.sync.get('blacklist', (value) => resolve(value)));
     
+    if (!websiteBlacklist) return;
+
+    if (!websiteBlacklist.includes(window.location.hostname)) return
+
     document.body.innerHTML = htmlPage;
     document.head.innerHTML = cssPage;
 }
 
 function draw() { }
 
-const htmlPage = `<div class="noise"></div>
+const htmlPage = `
+<!-- Author: Robin Selmer -->
+<div class="noise"></div>
 <div class="overlay"></div>
 <div class="terminal">
   <h1>Error <span class="errorcode">404</span></h1>
