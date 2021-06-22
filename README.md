@@ -16,6 +16,6 @@ HTML page that is inserted in the URLs in the Blacklist
 
 ### The pop-up
 This is where the Blacklist of websites is shown and lets you manage some functionalities
-![image](https://user-images.githubusercontent.com/31491328/122989471-3c3bfd00-d379-11eb-8679-294ae81548a3.png)
+![image](https://user-images.githubusercontent.com/31491328/123003955-53371b00-d38a-11eb-98a7-7423dc07a6f5.png)
 
 ## // TODO: How to install in
