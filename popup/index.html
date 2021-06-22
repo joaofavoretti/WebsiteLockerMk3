@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website locker</title>
+  <style>
+    div {
+      width: 100%;
+    }
+    body {
+      background-color: #303030 !important;
+      padding: 2rem;
+      width: 500px;
+      height: 250px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .disable-button {
+      display:flex;
+      justify-content: flex-end;
+    }
+    .disable-button button {
+      margin-left: 12px;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <script src="../library/p5.js"></script>
+  <script src="sketch.js"></script>
+</head>
+
+<body>
+  <div class="disable-button">
+    <button id="disable_button" class="btn btn-danger">Disable Extension</button>
+    <button id="disable_skip_button" class="btn btn-danger">Disable Skip</button>
+  </div>
+  <div class="form-black-list">
+    <h3 style="color: #f3f3f3">Insert more websites in your black-list</h1>
+    <div style="display:flex;">
+      <input class="form-control" id="website_input" placeholder="www.google.com">
+      <button id="submit_button" class="btn btn-default pt-4" style="margin-left: 12px;">Submit</button>
+    </div>
+  </div>
+</body>
+
+</html>
