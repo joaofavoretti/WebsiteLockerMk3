@@ -1,20 +1,40 @@
 async function setup() {
-    const { disable_extension } = await new Promise((resolve) => chrome.storage.sync.get('disable_extension', (value) => resolve(value)));
+  const { disable_extension } = await new Promise((resolve) => chrome.storage.sync.get('disable_extension', (value) => resolve(value)));
 
-    if (disable_extension) return;
+  if (disable_extension) return;
 
-    const { blacklist: websiteBlacklist } = await new Promise((resolve) => chrome.storage.sync.get('blacklist', (value) => resolve(value)));
+  const { click_disable } = await new Promise((resolve) => chrome.storage.sync.get('click_disable', (value) => resolve(value)));
+
+  if (click_disable) {
+    chrome.storage.sync.set({ click_disable: false }, () => {
+      console.warn("setted", { click_disable: false })
+    });
+    return;
+  }
+
+  const { blacklist: websiteBlacklist } = await new Promise((resolve) => chrome.storage.sync.get('blacklist', (value) => resolve(value)));
+
+  if (!websiteBlacklist) return;
+
+  if (!websiteBlacklist.includes(window.location.hostname)) return;
+
+  /* TRANSFORM THE PAGE IN THE 404 PAGE */
+  document.body.innerHTML = htmlPage;
+  document.head.innerHTML = cssPage;
+
+  /* CLICK TO RETURN TO NORMAL */
+  document.querySelector('body').addEventListener('click', async (e) => {
+    chrome.storage.sync.set({ click_disable: true }, () => {
+      console.warn("setted", { click_disable: true })
+    });
     
-    if (!websiteBlacklist) return;
-
-    if (!websiteBlacklist.includes(window.location.hostname)) return
-
-    document.body.innerHTML = htmlPage;
-    document.head.innerHTML = cssPage;
+    location.reload();
+  });
 }
 
 function draw() { }
 
+/* 404 PAGE */
 const htmlPage = `
 <!-- Author: Robin Selmer -->
 <div class="noise"></div>
