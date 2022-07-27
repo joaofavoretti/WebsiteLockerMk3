@@ -1,4 +1,4 @@
-# WebsiteLocker Mk3
+# WebsiteLocker V3
 This repository is the third attempt to make a useful Chrome Extension to remember you that you should not be accessing a specific website. The both previous versions had some interesting features attached but not a nice interface. The features can be added to this version of the project in the future, but keeping the interface
 
 **[Open source] Chrome extension to lock websites that you do not want to access**
